@@ -33,22 +33,22 @@
           '(
             ("w" . "任务安排")
             ("wa" "重要且紧急的任务" tags-todo "+PRIORITY=\"A\"")
-            ("wb" "重要且不紧急的任务" tags-todo "-Weekly-Monthly-Daily+PRIORITY=\"B\"")
-            ("wc" "不重要且紧急的任务" tags-todo "+PRIORITY=\"C\"") 
+            ("wb" "重要且不紧急的任务" tags-todo
+             "-Weekly-Monthly-Daily+PRIORITY=\"B\"")
+            ("wc" "不重要且紧急的任务" tags-todo "+PRIORITY=\"C\"")
             ;; ("b" "Blog" tags-todo "BLOG")
             ("p" . "项目安排")
-            ;; ("pw" tags-todo "PROJECT+WORK+CATEGORY=\"cocos2d-x\"")
-            ;; ("pl" tags-todo "PROJECT+DREAM+CATEGORY=\"zilongshanren\"")
             ("W" "Weekly Review"
-             ((stuck "")            ;; review stuck projects as designated by org-stuck-projects
-              (tags-todo "PROJECT") ;; review all projects (assuming you use todo keywords to designate projects)
+             ((stuck "")
+              (tags-todo "PROJECT")
               ))
             ("f" occur-tree "FIXME")
             ))
 
     (setq org-todo-keywords
           (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)")
-                  (sequence "WAITING(w@/!)" "HOLD(h@/!)"  "|" "CANCELLED(c@/!)" "MEETING(m)" "PHONE(p)"))))
+                  (sequence "WAITING(w@/!)" "HOLD(h@/!)"  "|" "CANCELLED(c@/!)"
+                            "MEETING(m)" "PHONE(p)"))))
 
     (setq org-todo-keyword-faces
           (quote (("TODO" :foreground "red" :weight bold)
@@ -64,11 +64,11 @@
         "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
         (interactive
          (let ((src-code-types
-                '("emacs-lisp" "python" "C" "sh" "java" "js" "clojure" "C++" "css"
-                  "calc" "asymptote" "dot" "gnuplot" "ledger" "lilypond" "mscgen"
-                  "octave" "oz" "plantuml" "R" "sass" "screen" "sql" "awk" "ditaa"
-                  "haskell" "latex" "lisp" "matlab" "ocaml" "org" "perl" "ruby"
-                  "scheme" "sqlite")))
+                '("emacs-lisp" "python" "C" "sh" "java" "js" "clojure" "C++"
+                  "css" "calc" "asymptote" "dot" "gnuplot" "ledger" "lilypond"
+                  "mscgen" "octave" "oz" "plantuml" "R" "sass" "screen" "sql"
+                  "awk" "ditaa" "haskell" "latex" "lisp" "matlab" "ocaml" "org"
+                  "perl" "ruby" "scheme" "sqlite")))
            (list (ido-completing-read "Source code type: " src-code-types))))
         (progn
           (newline-and-indent)
@@ -93,8 +93,8 @@
       (org-babel-do-load-languages
        'org-babel-load-languages
        '(
-         (ruby . t)
-         ;; (sh . t)
+         ;; (ruby . t)
+         (sh . t)
          (js . t)
          (latex .t)
          (python . t)
@@ -103,6 +103,4 @@
          (C . t)
          (ditaa . t)))
 
-))
-
-(provide 'init-org)
+      ))

@@ -27,7 +27,7 @@ values."
    ;; If non-nil layers with lazy install support are lazy installed.
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '()
+   dotspacemacs-configuration-layer-path '("~/.spacemacs.d/layers/")
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
@@ -36,13 +36,15 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
+     zhufuge
      react
      markdown
      ivy
-     (javascript :variables
-                 tern-command '("node"
-                                "c:/users/L6ml/AppData/Roaming/npm/node_modules/tern/bin/tern")
-                 javascript-disable-tern-port-files nil)
+     (javascript
+      :variables tern-command
+      '("node" "c:/users/L6ml/AppData/Roaming/npm/node_modules/tern/bin/tern")
+      javascript-disable-tern-port-files nil
+      )
      python
      html
      dash
@@ -52,25 +54,24 @@ values."
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
-     (colors :variables
-             colors-enable-nyan-cat-progress-bar t)
+     (colors :variables colors-enable-nyan-cat-progress-bar t)
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      imenu-list
-     (auto-completion :variables
-                      auto-completion-return-key-behavior 'complete
-                      auto-completion-tab-key-behavior 'cycle
-                      auto-completion-complete-with-key-sequence nil
-                      auto-completion-complete-with-key-sequence-delay 0.3
-                      auto-completion-enable-snippets-in-popup t
-                      auto-completion-enable-help-tooltip t
-                      auto-completion-private-snippets-directory "~/.spacemacs.d/snippets")
+     (auto-completion
+      :variables
+      auto-completion-return-key-behavior 'complete
+      auto-completion-tab-key-behavior 'cycle
+      auto-completion-complete-with-key-sequence nil
+      auto-completion-complete-with-key-sequence-delay 0.1
+      auto-completion-enable-snippets-in-popup t
+      auto-completion-enable-help-tooltip t
+      auto-completion-private-snippets-directory "~/.spacemacs.d/snippets")
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(ace-jump-mode
-                                      youdao-dictionary)
+   dotspacemacs-additional-packages '()
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -321,16 +322,8 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (add-to-list 'load-path "~/.spacemacs.d/lisp/")
-
-  (require 'init-better-defaults)
-  (require 'init-packages)
-  (require 'init-org)
-  (require 'init-keybindings)
-
-  (setq custom-file (expand-file-name "~/.spacemacs.d/lisp/custom.el" user-emacs-directory))
-  (load custom-file 'no-error 'no-message)
-
+  (setq powerline-default-separator 'arrow)
+  (spaceline-compile)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
