@@ -6,13 +6,6 @@
 
 (mouse-avoidance-mode 'animate)
 
-(defun my-desktop()
-  "find my desktop"
-  (interactive)
-  (find-file "C:/Users/L6ml/Desktop/")
-  )
-
-
 ;; tab key
 (defun check-expansion ()
   (save-excursion
@@ -43,15 +36,17 @@
 
 
 ;; font
-(defun my-font (e-size c-size)
-  (set-face-attribute 'default nil :font
-                      (format   "%s:pixelsize=%d"  "Source Code Pro Medium" e-size))
-  (dolist (charset '(kana han cjk-misc bopomofo))
-    (set-fontset-font (frame-parameter nil 'font) charset
-                      (font-spec :family "Microsoft Yahei" :size c-size)))
-  )
-(my-font 19 19)
-;;(my-font (* 19 2) (* 24 2))
+(dolist (charset '(kana han symbol cjk-misc bopomofo))
+  (set-fontset-font (frame-parameter nil 'font) charset
+                    (font-spec :family "Microsoft Yahei" :size 19)))
 
+;; 设置垃圾回收，在Windows下，emacs25版本会频繁出发垃圾回收，所以需要设置
+(when (eq system-type 'windows-nt)
+  (setq gc-cons-threshold (* 512 1024 1024))
+  (setq gc-cons-percentage 0.5)
+  (run-with-idle-timer 5 t #'garbage-collect)
+  ;; 显示垃圾回收信息，这个可以作为调试用
+  ;; (setq garbage-collection-messages t)
+  )
 
 (provide 'init-better-defaults)

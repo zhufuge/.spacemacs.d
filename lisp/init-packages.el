@@ -1,34 +1,43 @@
-(global-company-mode)
+﻿;; (global-company-mode)
 
+;; powerline
 (setq powerline-default-separator 'arrow)
 (spaceline-compile)
+;; -----------------------------------------------------
 
+
+;; org
 (add-hook 'org-mode-hook 'smartparens-mode)
 (setq org-bullets-bullet-list '("■" "◆" "▲" "●"))
+;; -----------------------------------------------------
 
-(setq web-mode-markup-indent-offset 2)
-(setq web-mode-css-indent-offset 2)
-(setq web-mode-code-indent-offset 2)
+
+;; web
+(add-hook 'web-mode-hook 'smartparens-mode)
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.scss?\\'" . web-mode))
+
+(setq-default
+ css-indent-offset 2
+ web-mode-markup-indent-offset 2
+ web-mode-css-indent-offset 2
+ web-mode-code-indent-offset 2
+ web-mode-attr-indent-offset 2)
+
+(with-eval-after-load 'web-mode
+  (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
+  (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
+  (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
+;; -----------------------------------------------------
+
+
+;; js
+(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
+(add-to-list 'auto-mode-alist '("\\.js?\\'" . js2-mode))
+
+
 (setq-default js2-basic-offset 2)
-
-;; (setq eclim-eclipse-dirs '("D:/tool/eclipse")
-;;       eclim-executable "D:/tool/eclipse/eclim")
-;; (setq eclimd-default-workspace "d:/File/Program-Edit/Java/learnJava")
-;; (setq help-at-pt-display-when-idle t)
-;; (setq help-at-pt-timer-delay 0.1)
-;; (help-at-pt-set-timer)
-;; (require 'company-emacs-eclim)
-;; (company-emacs-eclim-setup)
-
-;; (setq
-;;  ;; Use another eclimd executable
-;;  eclimd-executable "D:/tool/eclipse/eclim"
-;;  ;; Specify the workspace to use by default
-;;  eclimd-default-workspace "d:/File/Program-Edit/Java/learnJava"
-;;  ;; Whether or not to block emacs until eclimd is ready
-;;  eclimd-wait-for-process t
-;;  )
-
 
 (defun my-js2-mode-hook ()
   (progn
@@ -37,11 +46,27 @@
     (set (make-local-variable 'semantic-mode) nil)
     ))
 (add-hook 'js2-mode-hook 'my-js2-mode-hook)
+(add-hook 'js2-jsx-mode-hook 'emmet-mode)
+
+;; missing-warning
+(setq js2-strict-missing-semi-warning nil)
+(setq js2-missing-semi-one-line-override t)
+(setq js2-strict-trailing-comma-warning nil)
+;; ----------------------------------------------------
 
 
-(add-hook 'web-mode 'smartparens-mode)
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.scss?\\'" . web-mode))
+;; youdao
+;; Enable Cache
+(setq url-automatic-caching t)
+
+;; Integrate with popwin-el (https://github.com/m2ym/popwin-el)
+(push "*Youdao Dictionary*" popwin:special-display-config)
+
+;; Set file path for saving search history
+(setq youdao-dictionary-search-history-file "~/.spacemacs.d/.youdao")
+
+;; Enable Chinese word segmentation support (支持中文分词)
+(setq youdao-dictionary-use-chinese-word-segmentation t)
+;; ---------------------------------------------------
 
 (provide 'init-packages)

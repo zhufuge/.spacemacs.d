@@ -10,16 +10,14 @@
 (global-set-key [f3] 'split-window-right)
 (global-set-key [f4] 'delete-window)
 (global-set-key [f9] 'eshell)
-(global-set-key [f10] 'helm-mini)
+(global-set-key [f10] 'ibuffer)
 (global-set-key [f11] 'imenu-list-minor-mode)
 (global-set-key [f12] 'org-agenda)
 
 (global-set-key (kbd "M-p") 'fixup-whitespace)
 
-;; (global-set-key (kbd "M-[") 'previous-buffer)
-;; (global-set-key (kbd "M-]") 'next-buffer)
-
-(global-set-key (kbd "\C-s") 'helm-swoop)
+(global-set-key (kbd "M-[") 'previous-buffer)
+(global-set-key (kbd "M-]") 'next-buffer)
 
 (global-set-key (kbd "C-;") 'ace-jump-mode)
 
