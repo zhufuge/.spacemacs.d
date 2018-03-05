@@ -1,4 +1,4 @@
-Ôªø;;; packages.el --- zhufuge layer packages file for Spacemacs.
+;;; packages.el --- zhufuge layer packages file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
 ;;
@@ -17,7 +17,9 @@
     web-mode
     youdao-dictionary
     iedit
-    emmet-mode
+    smartparens
+    avy
+    typescript-mode
     )
   )
 
@@ -33,9 +35,7 @@
 
 (defun zhufuge/post-init-js2-mode ()
   (progn
-    (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
     (add-to-list 'auto-mode-alist '("\\.js?\\'" . js2-mode))
-
 
     (setq-default js2-basic-offset 2)
 
@@ -45,7 +45,10 @@
         (set (make-local-variable 'semantic-mode) nil)
         ))
     (add-hook 'js2-mode-hook 'my-js2-mode-hook)
-    (add-hook 'js2-jsx-mode-hook 'emmet-mode)
+
+    (setq js2-strict-missing-semi-warning nil)
+    (setq js2-missing-semi-one-line-override t)
+    (setq js2-strict-trailing-comma-warning nil)
     )
   )
 
@@ -63,7 +66,7 @@
       ;; Set file path for saving search history
       (setq youdao-dictionary-search-history-file "~/.spacemacs.d/.youdao")
 
-      ;; Enable Chinese word segmentation support (ÊîØÊåÅ‰∏≠ÊñáÂàÜËØç)
+      ;; Enable Chinese word segmentation support (÷ß≥÷÷–Œƒ∑÷¥ )
       (setq youdao-dictionary-use-chinese-word-segmentation t)
 
       ;; key binding
@@ -74,7 +77,7 @@
 
 (defun zhufuge/post-init-web-mode ()
   (progn
-    (add-hook 'web-mode-hook 'smartparens-mode)
+    (add-hook 'web-mode-hook 'smartparens-global-mode)
     (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.scss?\\'" . web-mode))
@@ -90,6 +93,17 @@
       (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
       (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
       (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
+
+    ;; emmet
+    (with-eval-after-load 'emmet-mode
+      (evil-define-key 'insert emmet-mode-keymap (kbd "TAB") nil)
+      (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") nil)
+      (evil-define-key 'emacs emmet-mode-keymap (kbd "TAB") nil)
+      (evil-define-key 'emacs emmet-mode-keymap (kbd "<tab>") nil)
+      (evil-define-key 'hybrid emmet-mode-keymap (kbd "TAB") nil)
+      (evil-define-key 'hybrid emmet-mode-keymap (kbd "<tab>") nil)
+      (spacemacs|hide-lighter emmet-mode)
+      )
     )
   )
 
@@ -103,15 +117,21 @@
     )
   )
 
-(defun zhufuge/post-init-emmet-mode ()
+(defun zhufuge/post-init-smartparens ()
   (progn
-    (evil-define-key 'insert emmet-mode-keymap (kbd "TAB") nil)
-    (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") nil)
-    (evil-define-key 'emacs emmet-mode-keymap (kbd "TAB") nil)
-    (evil-define-key 'emacs emmet-mode-keymap (kbd "<tab>") nil)
-    (evil-define-key 'hybrid emmet-mode-keymap (kbd "TAB") nil)
-    (evil-define-key 'hybrid emmet-mode-keymap (kbd "<tab>") nil)
-    (spacemacs|hide-lighter emmet-mode)
+    (add-hook 'org-mode-hook 'smartparens-mode)
+    )
+  )
+
+(defun zhufuge/post-init-avy ()
+  (progn
+    (global-set-key (kbd "C-;") 'avy-goto-word-or-subword-1)
+    )
+  )
+
+(defun zhufuge/post-init-typescript-mode ()
+  (progn
+    (setq typescript-indent-level 2)
     )
   )
 

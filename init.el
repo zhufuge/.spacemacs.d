@@ -37,7 +37,9 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      zhufuge
+     python
      react
+     typescript
      markdown
      ivy
      (javascript
@@ -45,7 +47,6 @@ values."
       '("node" "c:/users/L6ml/AppData/Roaming/npm/node_modules/tern/bin/tern")
       javascript-disable-tern-port-files nil
       )
-     python
      html
      dash
      c-c++
@@ -56,7 +57,6 @@ values."
             shell-default-position 'bottom)
      (colors :variables colors-enable-nyan-cat-progress-bar t)
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
-     imenu-list
      (auto-completion
       :variables
       auto-completion-return-key-behavior 'complete
@@ -71,7 +71,9 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(
+                                      htmlize
+                                      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -151,7 +153,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 19
+                               :size 16
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -309,10 +311,13 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
 
+  ;; (setq package-archives '(("gnu"   . "https://elpa.emacs-china.org/gnu/")
+  ;;                          ("melpa" . "https://elpa.emacs-china.org/melpa/")))
 
-(setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
-                         ("melpa" . "http://elpa.emacs-china.org/melpa/")))
-
+  (setq configuration-layer--elpa-archives
+        '(("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+          ("org"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+          ("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
     )
 
 (defun dotspacemacs/user-config ()

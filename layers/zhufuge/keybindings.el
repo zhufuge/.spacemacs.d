@@ -39,7 +39,5 @@
 ;; 模板补全
 (global-set-key (kbd "C-t") 'yas-expand)
 
+;; 设置 tab 键
 (global-set-key (kbd "TAB") 'tab-indent-or-complete)
-
-;; 跳转 not work
-(global-set-key (kbd "C-;") 'avy-goto-word-or-subword-1)

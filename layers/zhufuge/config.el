@@ -5,33 +5,10 @@
 (setq scroll-margin 3 scroll-conservatively 10000)
 
 ;; 窗口标题
-(setq frame-title-format "%b  @6ml-Spacemacs")
+(setq frame-title-format "%b  @zhufuge-Spacemacs")
 
 ;; 鼠标动作
 (mouse-avoidance-mode 'animate)
-
-;; tab key
-(defun check-expansion ()
-  (save-excursion
-    (if (looking-at "\\_>") t
-      (backward-char 1)
-      (if (looking-at "\\.") t
-        (backward-char 1)
-        (if (looking-at "->") t nil)))))
-
-(defun do-yas-expand ()
-  (let ((yas/fallback-behavior 'return-nil))
-    (yas/expand)))
-
-(defun tab-indent-or-complete ()
-  (interactive)
-  (if (minibufferp)
-      (minibuffer-complete)
-    (if (or (not yas/minor-mode)
-            (null (do-yas-expand)))
-        (if (check-expansion)
-            (company-complete-common)
-          (indent-for-tab-command)))))
 
 
 ;; indent
@@ -54,7 +31,6 @@
   )
 
 ;; org
-(add-hook 'org-mode-hook 'smartparens-mode)
 (setq org-bullets-bullet-list '("■" "◆" "▲" "●"))
 
 
